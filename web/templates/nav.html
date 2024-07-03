@@ -1,0 +1,36 @@
+{% load static %}
+<nav class="fixed top-0 left-0 right-0 bg-[#000000] z-50 mx-auto border-t-8 border-red-600">
+  <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+      <div class="text-white font-bold text-xl">
+        <img src="{% static 'img/nav.png'%}" alt="" class="w-12">
+      </div>
+      <button id="menu-button" class="block lg:hidden text-white focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+      </button>
+      <ul id="menu" class="hidden lg:flex space-x-4">
+          <li><a href="#inicio" class="text-white hover:text-[#FFD700]">Inicio</a></li>
+          <li><a href="#servicios" class="text-white hover:text-[#FFD700]">Servicios</a></li>
+          <li><a href="#acercade" class="text-white hover:text-[#FFD700]">Acerca de mí</a></li>
+          <li><a href="#contacto" class="text-white hover:text-[#FFD700]">Contacto</a></li>
+      </ul>
+  </div>
+  <div id="mobile-menu" class="hidden lg:hidden">
+      <ul class="flex flex-col space-y-2">
+          <li><a href="#inicio" class="block text-white hover:text-[#FFD700] px-4 py-2">Inicio</a></li>
+          <li><a href="#servicios" class="block text-white hover:text-[#FFD700] px-4 py-2">Servicios</a></li>
+          <li><a href="#acercade" class="block text-white hover:text-[#FFD700] px-4 py-2">Acerca de mí</a></li>
+          <li><a href="#contacto" class="block text-white hover:text-[#FFD700] px-4 py-2">Contacto</a></li>
+      </ul>
+  </div>
+</nav>
+
+<script>
+  const menuButton = document.getElementById('menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+  });
+</script>

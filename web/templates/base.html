@@ -1,0 +1,100 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Inicio{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    {% tailwind_css %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* Estilos del slider */
+        .img1 {
+            filter: drop-shadow(10px 7px 10px gray);
+        }
+
+        .carousel-container {
+    overflow: hidden;
+    display: flex;
+    justify-content: center; 
+}
+
+.carousel-inner {
+    display: flex;
+    gap: 1rem; 
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    transition: transform 0.5s ease-in-out;
+}
+        
+        /* .carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-inner {
+    transition: transform 0.5s ease;
+    
+}
+
+.carousel-item {
+    display: flex;
+    justify-content: center;
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.carousel-control-prev {
+    left: 10px;
+}
+
+.carousel-control-next {
+    right: 10px;
+} */
+
+
+    </style>
+    
+
+
+</head>
+
+<body class="bg-white">
+    {% include 'nav.html' %}
+
+
+    {% block content %}{% endblock %}
+
+
+
+    {% include 'footer.html' %}
+
+    
+</body>
+
+</html>

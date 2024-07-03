@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<section id="inicio" class="flex items-center mx-auto justify-center p-5 pt-20 max-w-7xl">
+    <div class="flex flex-col lg:flex-row space-y-10">
+        <div class="w-1/2 space-y-5 m-auto">
+            <h1 class="text-4xl lg:text-5xl text-center font-bebas-neue">Entrenamientos Personalizados de Calistenia en Santiago</h1>
+            <p class="text-2xl text-center font-roboto">Mejora tu rendimiento con evaluaciones mensuales y clases presenciales en Plaza Inés de Suárez, Providencia</p>
+        </div>
+        <div class="relative w-7/8 lg:w-1/2 m-auto">
+            <img src="{% static 'img/file.png' %}" alt="" class="img1">
+
+        </div>
+
+    </div>
+</section>
+
+<section id="servicios" class=" flex flex-col mx-auto justify-center py-12 pt-32 max-w-7xl ">
+    <h2 class="text-5xl text-center mb-8 font-bebas-neue">Encuentra el plan perfecto para ti</h2>
+    <div class=" relative carousel-container overflow-hidden mx-auto">
+        <div class="carousel-inner flex p-4 transition-transform duration-500 ease-in-out">
+            {% for slide in sliders %}
+            <div class=" carousel-item w-full lg:w-full flex {% if forloop.first %}active{% endif %}">
+                <div class="group relative block bg-black overflow-hidden shadow-lg w-full h-full ">
+                    <img alt="{{ slide.title }}" src="{{ slide.image.url }}"
+                        class="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50" />
+                    <div class="relative p-4 sm:p-6 lg:p-8">
+                        <h3 class="text-3xl uppercase text-red-600 font-bebas-neue font-bold">RexUp</h3>
+                        <p class="text-xl font-bold text-white sm:text-2xl font-roboto">{{ slide.title }}</p>
+                        <div class="mt-32 sm:mt-48 lg:mt-64">
+                            <div
+                                class="transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 text-white font-roboto font-semibold">
+                                <p class="">{{ slide.description|linebreaks }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- <button id="prevButton"
+            class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">‹</button>
+        <button id="nextButton"
+            class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">›</button> -->
+    </div>
+</section>
+
+
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const carouselInner = document.querySelector('.carousel-inner');
+        const slides = document.querySelectorAll('.carousel-item');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        let currentIndex = 0;
+        let itemsPerGroup = window.innerWidth >= 1280 ? 3 : (window.innerWidth >= 1024 ? 2 : 1); // Adjust based on screen width
+
+        function updateCarouselPosition() {
+            const slideWidth = slides[0].offsetWidth;
+            const totalWidth = slideWidth * slides.length + (slides.length - 1) * 16; // Adjust according to the gap
+            const containerWidth = carouselInner.parentElement.offsetWidth;
+
+            // Adjust padding for centering if total width is less than container width
+            if (totalWidth < containerWidth) {
+                const extraSpace = (containerWidth - totalWidth) / 2;
+                carouselInner.style.paddingLeft = `${extraSpace}px`;
+            } else {
+                carouselInner.style.paddingLeft = `0px`;
+            }
+
+            // Calculate max index based on the number of items per group and ensure it doesn't exceed bounds
+            const maxIndex = Math.max(0, slides.length - itemsPerGroup);
+            currentIndex = Math.min(currentIndex, maxIndex);
+            carouselInner.style.transform = `translateX(-${currentIndex * (slideWidth + 16)}px)`; // +16 for gap
+        }
+
+        prevButton.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                currentIndex = Math.max(0, slides.length - itemsPerGroup); // Adjust for the total number of slides
+            }
+            updateCarouselPosition();
+        });
+
+        nextButton.addEventListener('click', () => {
+            const maxIndex = Math.max(0, slides.length - itemsPerGroup);
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            updateCarouselPosition();
+        });
+
+        window.addEventListener('resize', () => {
+            itemsPerGroup = window.innerWidth >= 1280 ? 3 : (window.innerWidth >= 1024 ? 2 : 1);
+            updateCarouselPosition();
+        });
+
+        updateCarouselPosition();
+    });
+</script> -->
+
+
+<!-- <div class="container">Feed</div>
+<script>
+    let host = "https://graph.instagram.com/me/media?";
+let path = "fields=media_url,permalink&access_token=";
+// var fields = "?fields=media_type,media_url,caption,permalink&access_token=";
+var token = "IGQWROMElIX2MzaUhCTmhmeDVuNEtqdlFGaTBSRlJYM3JXSVllWFdfVW50bXFMTFAzT09NRXVTbFZAjUDR5Nk1CN0pGRUhVekRBZAWVFX2NEeENqMG9FM3NpM2dkOVg4empfUW1XdUg2SWMzMkxFbjVVQUZAua1NXVXcZD";
+
+var json1 = host + path + token;
+var json2 = "https://kineconecta.cl/";
+
+var jsonData = token.length > 170 ? json1 : json2;
+
+fetch(jsonData)
+  .then((response) => response.json())
+  .then((dataArray) => {
+    // console.log(dataArray)
+    dataArray.data.forEach((element) => {
+      // console.log(element.media_url)
+      document.querySelector(".container").innerHTML += `
+      <a href="${element.permalink}" target="_blank">
+      <img src='${element.media_url}'>
+      </a>
+      `;
+    });
+  });
+</script> -->
+
+
+
+
+<section id="acercade" class="flex items-center mx-auto justify-center pt-32 max-w-7xl">
+    <div>
+        <img src="" alt="">
+        <div class="mx-auto space-y-5 w-10/12">
+            <h3 class="text-5xl text-center"
+                style="font-family: Bebas Neue, sans-serif; font-weight: 400; font-style: normal;">Acerca de mí</h3>
+            <p class="text-lg font-roboto">
+                ¡Hola! Me llamo Felipe Garrido, pero muchos me conocen como Pipe. Soy Licenciado en Ciencias del Deporte y entrenador con más de 10 años de experiencia especializado en calistenia y Street Workout. Mi pasión por el fitness se intensificó durante mis estudios universitarios, donde comenzó mi proyecto de clases personalizadas debido a mis logros en calistenia y Street Workout, lo cual me llevó a convertirme en un referente en el área. Con un enfoque personalizado, mi objetivo es ayudarte a alcanzar tus metas de forma efectiva y segura.
+            </p>
+            <p class="text-lg font-roboto">
+                En Rex Up, no solo encontrarás entrenamientos adaptados a tus necesidades específicas, sino también un compromiso total con tu progreso. Valoramos el respeto, el compañerismo y la integridad, principios que guían cada interacción y sesión de entrenamiento. Además, mi dedicación va más allá de las barras y los ejercicios; soy conocido por mi puntualidad y habilidades blandas, asegurando un ambiente positivo y motivador en cada sesión.
+            </p>
+            <p class="text-lg font-roboto">
+                Si estás listo para llevar tu entrenamiento al siguiente nivel, ¡espero conocerte pronto en nuestra ubicación en Plaza Inés de Suárez, Providencia, Santiago!
+            </p>
+        </div>
+    </div>
+</section>
+
+<div>
+    <h2 id="contacto" class="text-5xl text-center my-6 max-w-7xl mx-auto font-bebas-neue pt-32">Contacto</h2>
+    <p>Puedes encontrarme en:</p>
+    <div>
+        <ul>
+            <li></li>
+            <li></li>
+        </ul>
+
+    </div>
+</div>
+<h2 id="contacto" class="text-5xl text-center my-6 max-w-7xl mx-auto font-bebas-neue pt-32">Instagram</h2>
+<div id="instagram-feed" class="flex flex-wrap justify-center gap-6 p-6 max-w-7xl mx-auto">
+    {% for post in posts %}
+        <div class="post bg-white shadow-md overflow-hidden max-w-sm">
+            {% if post.media_type == 'IMAGE' or post.media_type == 'CAROUSEL_ALBUM' %}
+                <img src="{{ post.media_url }}" alt="{{ post.caption }}" class="w-full">
+            {% elif post.media_type == 'VIDEO' %}
+                <video controls class="w-full">
+                    <source src="{{ post.media_url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            {% endif %}
+            <div class="p-4">
+                <p class="text-gray-800">{{ post.caption }}</p>
+                <a href="{{ post.permalink }}" target="_blank" class="text-blue-500 hover:underline">Ver en Instagram</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+
+
+
+{% endblock %}

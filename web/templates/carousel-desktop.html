@@ -1,0 +1,87 @@
+<section id="servicios" class=" flex flex-col mx-auto justify-center py-12 pt-32 max-w-7xl ">
+    <h2 class="text-5xl text-center mb-8 font-bebas-neue">Escoge el plan a tu medida</h2>
+    <div class=" relative carousel-container overflow-hidden">
+        <div class="carousel-inner flex p-4 transition-transform duration-500 ease-in-out">
+            {% for slide in sliders %}
+            <div class=" carousel-item w-full lg:w-1/3 flex-shrink-0 {% if forloop.first %}active{% endif %}">
+                <div class="group relative block bg-black overflow-hidden shadow-lg w-full h-full ">
+                    <img alt="{{ slide.title }}" src="{{ slide.image.url }}"
+                        class="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50" />
+                    <div class="relative p-4 sm:p-6 lg:p-8">
+                        <h3 class="text-3xl uppercase text-red-600 font-bebas-neue">RexUp</h3>
+                        <p class="text-xl font-bold text-white sm:text-2xl font-roboto">{{ slide.title }}</p>
+                        <div class="mt-32 sm:mt-48 lg:mt-64">
+                            <div
+                                class="transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
+                                <p class="font-bold text-white font-roboto">{{ slide.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button id="prevButton"
+            class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">‹</button>
+        <button id="nextButton"
+            class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">›</button>
+    </div>
+</section>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const carouselInner = document.querySelector('.carousel-inner');
+        const slides = document.querySelectorAll('.carousel-item');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        let currentIndex = 0;
+        let itemsPerGroup = window.innerWidth >= 1280 ? 3 : (window.innerWidth >= 1024 ? 2 : 1); // Adjust based on screen width
+
+        function updateCarouselPosition() {
+            const slideWidth = slides[0].offsetWidth;
+            const totalWidth = slideWidth * slides.length + (slides.length - 1) * 16; // Adjust according to the gap
+            const containerWidth = carouselInner.parentElement.offsetWidth;
+
+            // Adjust padding for centering if total width is less than container width
+            if (totalWidth < containerWidth) {
+                const extraSpace = (containerWidth - totalWidth) / 2;
+                carouselInner.style.paddingLeft = `${extraSpace}px`;
+            } else {
+                carouselInner.style.paddingLeft = `0px`;
+            }
+
+            // Calculate max index based on the number of items per group and ensure it doesn't exceed bounds
+            const maxIndex = Math.max(0, slides.length - itemsPerGroup);
+            currentIndex = Math.min(currentIndex, maxIndex);
+            carouselInner.style.transform = `translateX(-${currentIndex * (slideWidth + 16)}px)`; // +16 for gap
+        }
+
+        prevButton.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                currentIndex = Math.max(0, slides.length - itemsPerGroup); // Adjust for the total number of slides
+            }
+            updateCarouselPosition();
+        });
+
+        nextButton.addEventListener('click', () => {
+            const maxIndex = Math.max(0, slides.length - itemsPerGroup);
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            updateCarouselPosition();
+        });
+
+        window.addEventListener('resize', () => {
+            itemsPerGroup = window.innerWidth >= 1280 ? 3 : (window.innerWidth >= 1024 ? 2 : 1);
+            updateCarouselPosition();
+        });
+
+        updateCarouselPosition();
+    });
+</script>
